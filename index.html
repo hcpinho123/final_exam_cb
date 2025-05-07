@@ -13,10 +13,13 @@
         /* ROOT VARIABLES */
         :root {
             --accent: #4A90E2;
-            --bg-alt: #e8e8e8;
-            --card-bg: #dde0e2;
+            --accent-gradient: linear-gradient(135deg, #50E3C2 0%, #4A90E2 100%);
+            --bg-alt: #f0f4f8;
+            --card-bg: #ffffff;
             --text-primary: #333;
-            --obstacles-bg: #cccccc;
+            --obstacles-bg: #e9f2ff;
+            --journey-bg: #f5f9ff;
+            --articles-bg: #edf7ff;
             --font-code: 'Source Code Pro', monospace;
         }
 
@@ -40,6 +43,12 @@
 
         a {
             color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: #2c78d4;
         }
 
         /* HEADER */
@@ -50,7 +59,6 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(6px);
             padding: 12px 0;
-            /* Remove horizontal padding here */
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             z-index: 100;
         }
@@ -60,8 +68,8 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            padding-left: 5px;
-            padding-right: 5px;
+            padding-left: 20px;
+            padding-right: 20px;
             box-sizing: border-box;
         }
 
@@ -70,8 +78,9 @@
             font-size: 1.5rem;
             font-weight: 700;
             flex: 0 0 auto;
-            margin-left: 0;
-            /* Remove any default margin */
+            background: var(--text-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-links {
@@ -159,7 +168,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: auto;
         }
 
@@ -172,24 +181,40 @@
             height: 80vh;
             background: linear-gradient(135deg, #50E3C2 0%, #4A90E2 100%);
             color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
         }
 
         #hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
-            margin-bottom: .5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
 
         #hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
         }
 
         /* HEADINGS */
         h2 {
             font-family: var(--font-code);
             font-size: 2.2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             position: relative;
@@ -208,41 +233,128 @@
             bottom: 0;
             width: 60px;
             height: 4px;
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--accent), #50E3C2);
             border-radius: 2px;
         }
 
-        /* GOAL */
+        /* GOAL SECTION - COMPLETELY REDESIGNED */
+        #goal {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4f1fe 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 120px;
+            padding-bottom: 120px;
+        }
+
+        #goal::before {
+            content: '';
+            position: absolute;
+            right: -150px;
+            top: -150px;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(74, 144, 226, 0.05);
+            z-index: 0;
+        }
+
         .goal-container {
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
+            padding: 0;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+
+        .goal-header {
+            background: var(--accent-gradient);
+            color: white;
+            padding: 30px;
+            display: flex;
             align-items: center;
+            gap: 20px;
         }
 
         .goal-icon {
             font-size: 3rem;
-            color: var(--accent);
+            color: white;
             flex: 0 0 auto;
+            background: rgba(255, 255, 255, 0.15);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .goal-header-text h3 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-family: var(--font-code);
+        }
+
+        .goal-header-text p {
+            margin: 5px 0 0;
+            opacity: 0.9;
         }
 
         .goal-text {
-            flex: 1;
+            padding: 30px;
+        }
+
+        .goal-text p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .goal-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .goal-text em {
+            font-style: italic;
+            background: linear-gradient(90deg, #4A90E2, #50E3C2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+
+        .goal-text strong {
+            color: #333;
+            font-weight: 600;
         }
 
         /* OBSTACLES GRID */
         #obstacles {
             background: var(--obstacles-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #obstacles::after {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(80, 227, 194, 0.08);
+            z-index: 0;
         }
 
         .obstacles-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 40px;
             align-items: start;
+            position: relative;
+            z-index: 1;
         }
 
         .obstacles-content {
@@ -257,10 +369,6 @@
             gap: 20px;
         }
 
-        #obstacles .card {
-            background: #fff;
-        }
-
         /* CARD STYLES */
         .card-container {
             display: grid;
@@ -270,11 +378,12 @@
 
         .card {
             background: var(--card-bg);
-            padding: 24px;
+            padding: 28px;
             border-radius: 12px;
             position: relative;
             overflow: hidden;
             transition: transform .3s, box-shadow .3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04);
         }
 
         .card::before {
@@ -284,58 +393,125 @@
             right: -50px;
             width: 100px;
             height: 100px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(74, 144, 226, 0.05);
             border-radius: 50%;
             transition: transform .5s;
         }
 
         .card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
         }
 
         .card:hover::before {
-            transform: scale(1.5);
+            transform: scale(1.8);
         }
 
-        /* ARTICLES GRID */
+        .card h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        .card h3 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .card ul {
+            padding-left: 0;
+        }
+
+        .card li {
+            margin-bottom: 12px;
+        }
+
+        .card li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* JOURNEY SECTION */
+        #journey {
+            background: var(--journey-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #journey::before {
+            content: '';
+            position: absolute;
+            left: 5%;
+            top: 20%;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(80, 227, 194, 0.15);
+        }
+
+        #journey::after {
+            content: '';
+            position: absolute;
+            right: 10%;
+            bottom: 15%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        /* ARTICLES GRID - UPDATED FOR EQUAL HEIGHT CARDS */
         #articles {
-            background: var(--bg-alt);
+            background: var(--articles-bg);
+            position: relative;
         }
 
-        .articles-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            align-items: start;
-        }
-
-        .articles-grid .card:nth-child(even) {
-            order: 1;
-        }
-
-        .download-link {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 8px 12px;
-            background: var(--card-bg);
-            border-radius: 6px;
-            font-weight: 600;
+        #articles::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(237, 247, 255, 0) 0%, rgba(80, 227, 194, 0.05) 100%);
+            pointer-events: none;
         }
 
         .articles-flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            justify-content: space-between;
-            /* width: 100vw;  <-- REMOVE THIS LINE */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
         }
 
         .articles-flex .card {
-            flex: 1 1 0;
-            min-width: 260px;
-            max-width: 100%;
-            box-sizing: border-box;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .articles-flex .card p {
+            flex-grow: 1;
+        }
+
+        .articles-flex .card a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            text-align: center;
+        }
+
+        .articles-flex .card a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
         }
 
         /* UTILITIES */
@@ -349,6 +525,20 @@
             .obstacles-grid,
             .articles-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .goal-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            #hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .articles-flex .card {
+                height: auto;
+                min-height: 280px;
             }
         }
     </style>
@@ -383,13 +573,26 @@
     </section>
     <section id="goal">
         <div class="container">
-            <h2><i class="fas fa-bullseye"></i> My Most Important Goal</h2>
             <div class="goal-container">
-                <div class="goal-icon"><i class="fas fa-bullseye"></i></div>
+                <div class="goal-header">
+                    <div class="goal-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="goal-header-text">
+                        <h3>My Most Important Goal</h3>
+                        <p>Creating value through behavioral understanding</p>
+                    </div>
+                </div>
                 <div class="goal-text">
-                    <p>To transition from a <code>web developer</code> freelancer into a successful
-                        <code>product-led entrepreneur</code> who delivers meaningful digital experiences.
+                    <p>My primary goal is to grow as a professional by making smarter, more consumer-focused
+                        decisions—whether I'm building software products, contributing to a company, or launching my own
+                        ideas.
+                        Instead of just coding features or chasing trends, I want to consistently ask:
+                        <em>"What real problem am I solving for the user?"</em>
                     </p>
+                    <p>Inspired by Melina Palmer's book, <strong>What Your Customer Wants and Can't Tell You</strong>,
+                        I'm learning to approach every project with behavioral science in mind—framing choices, creating
+                        value through perceived gains, and reducing friction in user experiences.</p>
                     <p>This means building a scalable digital product that helps small businesses improve customer
                         engagement using behavioral insights—shifting from client-based work to a SaaS venture to
                         generate recurring revenue and amplify impact.</p>
@@ -401,32 +604,47 @@
         <div class="container">
             <h2><i class="fas fa-exclamation-triangle"></i> Biggest Obstacles</h2>
             <div class="obstacles-grid">
-                <div class="obstacles-image">
+                <div class="obstacles-image" style="height: 100%;">
                     <img src="image.png" alt="Obstacles Illustration"
-                        style="width:100%; height:100%; object-fit:cover; border-radius:12px; display:block;">
+                        style="width:100%; height:100%; object-fit:cover; border-radius:16px; display:block; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                 </div>
                 <div class="obstacles-content">
                     <div class="card-container">
                         <div class="card">
                             <h3><i class="fas fa-user"></i> Internal</h3>
-                            <ul>
-                                <li><span class="highlight">Self-Doubt</span>: Questioning whether I can scale beyond
-                                    client projects.</li>
-                                <li><span class="highlight">Time Management</span>: Balancing product dev and client
-                                    work.</li>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li><span class="highlight">Default to Developer Thinking</span> — I sometimes fall into
+                                    the habit of
+                                    solving technical challenges without stepping back to ask what matters most to the
+                                    customer. Behavioral science reminds me to reframe success through the user's eyes,
+                                    not mine.</li>
+                                <li><span class="highlight">Impatience for Results</span> — Like many builders, I want
+                                    fast feedback.
+                                    But real consumer insights often take testing, feedback loops, and iteration.
+                                    I'm
+                                    learning to slow down and let the process shape the product.</li>
                             </ul>
                         </div>
                         <div class="card">
                             <h3><i class="fas fa-globe"></i> External</h3>
-                            <ul>
-                                <li><span class="highlight">Market Noise</span>: Standing out against competitors.</li>
-                                <li><span class="highlight">Resource Constraints</span>: Limited budget for tools and
-                                    marketing.</li>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li><span class="highlight">Noisy Marketplaces</span> — In a world flooded with
+                                    products, it's hard to
+                                    stand out. The challenge is to make my work feel intuitive, trustworthy, and clearly
+                                    valuable—by leveraging priming, anchoring, and social proof.</li>
+                                <li>
+                                    <span class="highlight">Resource Constraints</span> — Limited time and budget make
+                                    it harder to run experiments or gather deep user data.
+                                    That's where smart application of behavioral economics—like <em>framing</em>,
+                                    <em>scarcity</em>, or <em>habit design</em>—can make even simple features feel
+                                    impactful.
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     <section id="journey">
@@ -435,15 +653,23 @@
             <div class="card-container">
                 <div class="card">
                     <h3><i class="fas fa-lightbulb"></i> Framing My Path</h3>
-                    <p>I treat each sprint as a “growth investment” to stay motivated and reduce procrastination.</p>
+                    <p>
+                        I began to see each step of my process as part of a real person’s day. Instead of asking, “What
+                        feature can I build next?” I now ask, “What problem does my user face, and how can I make their
+                        life easier?” This shift helps me focus on what truly matters.
+                    </p>
                 </div>
                 <div class="card">
-                    <h3><i class="fas fa-anchor"></i> Anchoring Productivity</h3>
-                    <p>Setting a daily “power hour” at 8 AM so anything after feels like a bonus boost.</p>
+                    <h3><i class="fas fa-anchor"></i>Priming For Focus</h3>
+                    <p>I created simple visual cues—blocking “Quiet Time” on my calendar and sorting tasks by color—so
+                        my brain knows exactly when it’s time to dive in. Those reminders make it much easier to settle
+                        into deep, productive work.</p>
                 </div>
                 <div class="card">
                     <h3><i class="fas fa-chart-line"></i> Conquering Loss Aversion</h3>
-                    <p>Viewing missed milestones as data, not losses, to maintain momentum through experiments.</p>
+                    <p>Whenever I hit a key milestone, I treat myself to a small reward—a walk outside, a favorite
+                        snack, or a quick coffee break. Those little surprises trigger a burst of energy and keep me
+                        excited about the next challenge.</p>
                 </div>
             </div>
         </div>
@@ -459,7 +685,7 @@
                 </div>
                 <div class="card">
                     <h3><i class="fas fa-scale-unbalanced-flip"></i> Loss Aversion Tactics</h3>
-                    <p>Highlighting what’s at stake drives more action than promises of gains.</p>
+                    <p>Highlighting what's at stake drives more action than promises of gains.</p>
                     <a href="loss-aversion.html">Read More</a>
                 </div>
                 <div class="card">
@@ -468,8 +694,6 @@
                     <a href="surprise-delight.html">Read More</a>
                 </div>
             </div>
-
-        </div>
         </div>
     </section>
 </body>
