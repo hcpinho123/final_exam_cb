@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henrique's Growth Journal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        /* ROOT VARIABLES */
+        :root {
+            --accent: #4A90E2;
+            --bg-alt: #e8e8e8;
+            --card-bg: #dde0e2;
+            --text-primary: #333;
+            --obstacles-bg: #cccccc;
+            --font-code: 'Source Code Pro', monospace;
+        }
+
+        /* RESET */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        html {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+        }
+
+        body {
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(6px);
+            padding: 12px 0;
+            /* Remove horizontal padding here */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding-left: 5px;
+            padding-right: 5px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-family: var(--font-code);
+            font-size: 1.5rem;
+            font-weight: 700;
+            flex: 0 0 auto;
+            margin-left: 0;
+            /* Remove any default margin */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .nav-links li {
+            list-style: none;
+        }
+
+        .nav-links a {
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background .3s;
+            display: block;
+        }
+
+        .nav-links a:hover {
+            background: var(--bg-alt);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+
+        .burger span {
+            height: 3px;
+            width: 25px;
+            background: var(--accent);
+            margin: 4px 0;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 900px) {
+            .nav-links {
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background: #fff;
+                flex-direction: column;
+                gap: 0;
+                width: 180px;
+                border-radius: 8px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+                overflow: hidden;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-10px);
+                transition: all 0.3s;
+                z-index: 200;
+            }
+
+            .nav-links.open {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            .burger {
+                display: flex;
+            }
+        }
+
+        /* SECTION BASE */
+        section {
+            padding: 100px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        /* HERO */
+        #hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 80vh;
+            background: linear-gradient(135deg, #50E3C2 0%, #4A90E2 100%);
+            color: #fff;
+        }
+
+        #hero h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+            margin-bottom: .5rem;
+        }
+
+        #hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+
+        /* HEADINGS */
+        h2 {
+            font-family: var(--font-code);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-bottom: .5rem;
+        }
+
+        h2 i {
+            margin-right: .6rem;
+            color: var(--accent);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* GOAL */
+        .goal-container {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .goal-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            flex: 0 0 auto;
+        }
+
+        .goal-text {
+            flex: 1;
+        }
+
+        /* OBSTACLES GRID */
+        #obstacles {
+            background: var(--obstacles-bg);
+        }
+
+        .obstacles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .obstacles-content {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+        }
+
+        .obstacles-content .card-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        #obstacles .card {
+            background: #fff;
+        }
+
+        /* CARD STYLES */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: transform .5s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .card:hover::before {
+            transform: scale(1.5);
+        }
+
+        /* ARTICLES GRID */
+        #articles {
+            background: var(--bg-alt);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .articles-grid .card:nth-child(even) {
+            order: 1;
+        }
+
+        .download-link {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: var(--card-bg);
+            border-radius: 6px;
+            font-weight: 600;
+        }
+
+        .articles-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: space-between;
+            /* width: 100vw;  <-- REMOVE THIS LINE */
+        }
+
+        .articles-flex .card {
+            flex: 1 1 0;
+            min-width: 260px;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* UTILITIES */
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        @media(max-width:768px) {
+
+            .obstacles-grid,
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Henrique's Journal</div>
+                <ul class="nav-links">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#goal">My Goal</a></li>
+                    <li><a href="#obstacles">Obstacles</a></li>
+                    <li><a href="#journey">Journey</a></li>
+                    <li><a href="#articles">Articles</a></li>
+                </ul>
+                <div class="burger" id="burger-menu" aria-label="Open menu" tabindex="0">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section id="hero">
+        <div class="container">
+            <h1>From Intention to Impact</h1>
+            <p>Welcome—this is my personal growth blog where I apply Consumer Behavior concepts to conquer my biggest
+                challenges.</p>
+        </div>
+    </section>
+    <section id="goal">
+        <div class="container">
+            <h2><i class="fas fa-bullseye"></i> My Most Important Goal</h2>
+            <div class="goal-container">
+                <div class="goal-icon"><i class="fas fa-bullseye"></i></div>
+                <div class="goal-text">
+                    <p>To transition from a <code>web developer</code> freelancer into a successful
+                        <code>product-led entrepreneur</code> who delivers meaningful digital experiences.
+                    </p>
+                    <p>This means building a scalable digital product that helps small businesses improve customer
+                        engagement using behavioral insights—shifting from client-based work to a SaaS venture to
+                        generate recurring revenue and amplify impact.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="obstacles">
+        <div class="container">
+            <h2><i class="fas fa-exclamation-triangle"></i> Biggest Obstacles</h2>
+            <div class="obstacles-grid">
+                <div class="obstacles-image">
+                    <img src="image.png" alt="Obstacles Illustration"
+                        style="width:100%; height:100%; object-fit:cover; border-radius:12px; display:block;">
+                </div>
+                <div class="obstacles-content">
+                    <div class="card-container">
+                        <div class="card">
+                            <h3><i class="fas fa-user"></i> Internal</h3>
+                            <ul>
+                                <li><span class="highlight">Self-Doubt</span>: Questioning whether I can scale beyond
+                                    client projects.</li>
+                                <li><span class="highlight">Time Management</span>: Balancing product dev and client
+                                    work.</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3><i class="fas fa-globe"></i> External</h3>
+                            <ul>
+                                <li><span class="highlight">Market Noise</span>: Standing out against competitors.</li>
+                                <li><span class="highlight">Resource Constraints</span>: Limited budget for tools and
+                                    marketing.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="journey">
+        <div class="container">
+            <h2><i class="fas fa-rocket"></i> My Journey & Insights</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3><i class="fas fa-lightbulb"></i> Framing My Path</h3>
+                    <p>I treat each sprint as a “growth investment” to stay motivated and reduce procrastination.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-anchor"></i> Anchoring Productivity</h3>
+                    <p>Setting a daily “power hour” at 8 AM so anything after feels like a bonus boost.</p>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Conquering Loss Aversion</h3>
+                    <p>Viewing missed milestones as data, not losses, to maintain momentum through experiments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="articles">
+        <div class="container">
+            <h2><i class="fas fa-book-open"></i> Articles & Deep Dives</h2>
+            <div class="articles-flex">
+                <div class="card">
+                    <h3><i class="fas fa-stream"></i> How Framing Shapes Choices</h3>
+                    <p>Positive vs negative framing can shift both user behavior and personal mindset.</p>
+                    <a href="framing.html">Read More</a>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-scale-unbalanced-flip"></i> Loss Aversion Tactics</h3>
+                    <p>Highlighting what’s at stake drives more action than promises of gains.</p>
+                    <a href="loss-aversion.html">Read More</a>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-gift"></i> Surprise & Delight Hacks</h3>
+                    <p>Small, unexpected rewards can create powerful loyalty and emotion.</p>
+                    <a href="surprise-delight.html">Read More</a>
+                </div>
+            </div>
+
+        </div>
+        </div>
+    </section>
+</body>
+
+<script>
+    // Burger menu toggle
+    const burger = document.getElementById('burger-menu');
+    const navLinks = document.querySelector('.nav-links');
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+        });
+    });
+    burger.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            navLinks.classList.toggle('open');
+        }
+    });
+</script>
+
+</html>
